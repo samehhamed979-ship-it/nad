@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنصة التعليمية | د. ندى السباعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background-color: #f1f5f9; color: #0f172a; min-height: 100vh; padding-bottom: 2rem; }
+        
+        header {
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #0284c7;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .header-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #0284c7;
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: #0284c7; }
+        .logo span { color: #475569; font-size: 0.95rem; font-weight: 600; }
+        .back-btn { 
+            background: #e0f2fe; 
+            color: #0369a1; 
+            padding: 0.5rem 1.2rem; 
+            border-radius: 8px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            display: none; 
+            border: none;
+        }
+        .back-btn:hover { background: #0284c7; color: #fff; }
+
+        .main-container { max-width: 950px; margin: 2rem auto; padding: 0 1rem; }
+        
+        .hero { 
+            text-align: center; 
+            padding: 1.5rem 1rem 2rem 1rem; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hero-img-container {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.3);
+            border: 4px solid #ffffff;
+            margin-bottom: 1.2rem;
+            background-color: #e0f2fe;
+        }
+        .hero-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero h1 { font-size: 2.2rem; color: #0f172a; margin-bottom: 0.5rem; font-weight: 800; }
+        .hero p { font-size: 1.1rem; color: #64748b; margin-bottom: 1.2rem; }
+
+        .hero-contacts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .hero-contact-item {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #0369a1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .hero-contact-item span { color: #334155; direction: ltr; display: inline-block; }
+
+        .portals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .portal-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 2.2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            border: 2px solid #cbd5e1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .portal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(2, 132, 199, 0.15);
+            border-color: #0284c7;
+        }
+        .portal-card .level-badge {
+            background: #0284c7;
+            color: white;
+            padding: 0.3rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .portal-card.schedule-card .level-badge { background: #059669; }
+        .portal-card.support-card .level-badge { background: #d97706; }
+
+        .portal-card h3 { font-size: 1.5rem; color: #0f172a; margin-bottom: 0.5rem; }
+        .portal-card p { font-size: 0.95rem; color: #64748b; margin-bottom: 1.8rem; }
+        .btn-action {
+            display: block;
+            background: #0284c7;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+        .portal-card.schedule-card .btn-action { background: #059669; }
+        .portal-card.support-card .btn-action { background: #d97706; }
+
+        .support-section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e2e8f0;
+            margin-top: 1rem;
+        }
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        .contact-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 1.2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .contact-box h4 { color: #0284c7; font-size: 1.1rem; margin-bottom: 0.4rem; }
+        .contact-box p { color: #334155; font-weight: 700; font-size: 0.95rem; direction: ltr; }
+        
+        .contact-form {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: #0284c7; }
+        .contact-form button {
+            background: #0284c7;
+            color: white;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .modal-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            width: 90%; max-width: 400px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .modal-card input {
+            width: 100%; padding: 0.9rem;
+            margin: 1.2rem 0;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            outline: none;
+            text-transform: uppercase;
+        }
+        .modal-card input:focus { border-color: #0284c7; }
+        .modal-card button {
+            width: 100%; background: #0284c7;
+            color: white; border: none; padding: 0.9rem;
+            border-radius: 10px; font-size: 1rem;
+            font-weight: 700; cursor: pointer;
+        }
+        .close-icon { position: absolute; top: 15px; left: 20px; font-size: 1.6rem; cursor: pointer; color: #94a3b8; }
+
+        #coursesView, #scheduleView, #supportView { display: none; }
+        
+        .subject-box {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+        }
+
+        .subject-side-img {
+            width: 250px;
+            min-width: 250px;
+            background-color: #0f172a;
+            position: relative;
+        }
+        .subject-side-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0.9;
+        }
+
+        .subject-details {
+            padding: 1.8rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .subject-details h3 { color: #0284c7; margin-bottom: 0.4rem; font-size: 1.5rem; font-weight: 800; }
+        .subject-details p { color: #64748b; margin-bottom: 1.5rem; font-size: 0.95rem; }
+        
+        .buttons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.8rem; }
+        .btn-link {
+            background: #f8fafc; border: 1.5px solid #cbd5e1;
+            padding: 0.75rem; border-radius: 10px;
+            text-align: center; text-decoration: none;
+            color: #334155; font-weight: 700; font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .btn-link:hover { background: #0284c7; color: white; border-color: #0284c7; }
+        .btn-external { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+        .btn-external:hover { background: #d97706; color: white; border-color: #d97706; }
+
+        .schedule-isolated-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e2e8f0;
+            border-top: 4px solid #059669;
+        }
+        .schedule-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        .schedule-header h2 { font-size: 1.6rem; color: #0f172a; font-weight: 800; }
+        .schedule-tag { background: #d1fae5; color: #047857; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.85rem; font-weight: 700; }
+
+        .table-responsive { overflow-x: auto; }
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+        }
+        .schedule-table th, .schedule-table td {
+            padding: 1.1rem 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.95rem;
+        }
+        .schedule-table th { background: #f8fafc; color: #475569; font-weight: 700; }
+        .schedule-table tr:hover { background: #f8fafc; }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem 1rem;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 680px) {
+            .subject-box { flex-direction: column; }
+            .subject-side-img { width: 100%; height: 200px; min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="dr_nada.jpg" alt="د. ندى السباعي" class="header-avatar" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=200&q=80';">
+            <div class="logo">د. ندى السباعي <span>| بوابة طب الأسنان</span></div>
+        </div>
+        <button class="back-btn" id="backBtn" onclick="openHome()">الرجوع للرئيسية ←</button>
+    </header>
+
+    <div class="main-container">
+        <!-- الصفحة الرئيسية -->
+        <div id="homeView">
+            <div class="hero">
+                <div class="hero-img-container">
+                    <img id="mainProfilePic" src="dr_nada.jpg" alt="د. ندى السباعي" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=500&q=80';">
+                </div>
+                <h1>المنصة التعليمية للـ د. ندى السباعي</h1>
+                <p>اختر المستوى الدراسي، جدول المحاضرات، أو تواصل مع الدعم الفني</p>
+                
+                <div class="hero-contacts">
+                    <div class="hero-contact-item">💬 واتساب: <span>+20 100 000 0000</span></div>
+                    <div class="hero-contact-item">📞 هاتف: <span>+20 120 000 0000</span></div>
+                    <div class="hero-contact-item">✉️ إيميل: <span>support@drnada-dent.com</span></div>
+                </div>
+            </div>
+
+            <div class="portals-grid">
+                <div class="portal-card" onclick="triggerModal('1')">
+                    <span class="level-badge">Level 1</span>
+                    <h3>السنة الأولى</h3>
+                    <p>Dental Anatomy (تشريح وتعديل الأسنان)</p>
+                    <span class="btn-action">دخول البوابة</span>
+                </div>
+
+                <div class="portal-card" onclick="triggerModal('2')">
+                    <span class="level-badge">Levels 2 - 5</span>
+                    <h3>السنوات من 2 إلى 5</h3>
+                    <p>Oral Histology / Operative / Endo</p>
+                    <span class="btn-action">دخول البوابة</span>
+                </div>
+
+                <div class="portal-card schedule-card" onclick="triggerModal('schedule')">
+                    <span class="level-badge">Live Schedule</span>
+                    <h3>جدول المحاضرات</h3>
+                    <p>المواعيد المباشرة والمراجعات الأسبوعية</p>
+                    <span class="btn-action">عرض الجدول</span>
+                </div>
+
+                <div class="portal-card support-card" onclick="renderSupport()">
+                    <span class="level-badge">Help & Support</span>
+                    <h3>الدعم الفني والخدمات</h3>
+                    <p>استفسارات الاشتراكات والمساعدة الأكاديمية</p>
+                    <span class="btn-action">تواصل معنا</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- صفحة عرض المواد الأكاديمية -->
+        <div id="coursesView">
+            <h2 id="viewTitle" style="margin-bottom: 1.8rem; color: #0f172a; font-size: 1.7rem;"></h2>
+            <div id="subjectsWrapper"></div>
+        </div>
+
+        <!-- صفحة عرض جدول المحاضرات -->
+        <div id="scheduleView">
+            <div class="schedule-isolated-card">
+                <div class="schedule-header">
+                    <h2>📅 جدول المحاضرات المباشرة والمراجعات</h2>
+                    <span class="schedule-tag">تحديث أسبوعي</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>اليوم</th>
+                                <th>المادة</th>
+                                <th>المستوى</th>
+                                <th>التوقيت</th>
+                                <th>القاعة / رابط البث</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>الأحد</td>
+                                <td>Dental Anatomy</td>
+                                <td>السنة الأولى</td>
+                                <td>05:00 م - 07:00 م</td>
+                                <td>قاعة 1 / مباشر</td>
+                            </tr>
+                            <tr>
+                                <td>الثلاثاء</td>
+                                <td>Oral Histology</td>
+                                <td>السنة الثانية</td>
+                                <td>07:00 م - 09:00 م</td>
+                                <td>المدرج الرئيسي</td>
+                            </tr>
+                            <tr>
+                                <td>الخميس</td>
+                                <td>Operative Dentistry</td>
+                                <td>السنة الثالثة</td>
+                                <td>04:00 م - 06:00 م</td>
+                                <td>معمل المحاكاة</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- صفحة الدعم الفني وتواصل معنا -->
+        <div id="supportView">
+            <div class="support-section">
+                <h2 style="color: #0f172a; margin-bottom: 0.5rem;">📞 مركز خدمة الطلاب والدعم الفني</h2>
+                <p style="color: #64748b; font-size: 0.95rem;">لأي استفسار يخص الاشتراكات، رموز الدخول، أو المشاكل التقنية يمكنك التواصل عبر الأرقام التالية:</p>
+
+                <div class="support-grid">
+                    <div class="contact-box">
+                        <h4>واتساب الدعم السريع</h4>
+                        <p>+20 100 000 0000</p>
+                    </div>
+                    <div class="contact-box">
+                        <h4>الهاتف المباشر</h4>
+                        <p>+20 120 000 0000</p>
+                    </div>
+                    <div class="contact-box">
+                        <h4>البريد الإلكتروني</h4>
+                        <p>support@drnada-dent.com</p>
+                    </div>
+                </div>
+
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('تم إرسال رسالتك لخدمة العملاء بنجاح!');">
+                    <h3 style="color: #0f172a; margin-top: 1rem; font-size: 1.2rem;">أرسل رسالة مباشرة</h3>
+                    <input type="text" placeholder="الاسم الكامل" required>
+                    <input type="tel" placeholder="رقم الهاتف / الواتساب" required>
+                    <textarea rows="4" placeholder="اكتب استفسارك أو المشكلة التي تواجهها..." required></textarea>
+                    <button type="submit">إرسال الطلب</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة كود الدخول -->
+    <div class="modal-bg" id="modalBg">
+        <div class="modal-card">
+            <span class="close-icon" onclick="dismissModal()">&times;</span>
+            <h3 style="color:#0f172a;">رمز الوصول</h3>
+            <p style="color:#64748b; font-size:0.9rem; margin-top:5px;">أدخل كود الدخول المعتمد للمنصة</p>
+            <input type="text" id="passCode" placeholder="NADA123">
+            <button onclick="checkAccess()">دخول المنصة</button>
+        </div>
+    </div>
+
+    <footer>
+        المنصة التعليمية لطب الأسنان - د. ندى السباعي © 2026
+    </footer>
+
+    <script>
+        let currentGroup = '1';
+        const ACCESS_CODE = 'NADA123';
+
+        const coursesData = {
+            '1': [
+                { 
+                    title: 'Dental Anatomy', 
+                    desc: 'دراسة تشريح ومورفولوجيا الأسنان وتفاصيل الجذر والتاج.', 
+                    img: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=600&q=80',
+                    pdfUrl: 'pdfs/dental_anatomy.pdf',
+                    quizUrl: '#',
+                    videoUrl: 'videos/dental_anatomy.mp4',
+                    externalSourceUrl: 'https://www.youtube.com/'
+                }
+            ],
+            '2': [
+                { 
+                    title: 'Oral Histology', 
+                    desc: 'دراسة الأنسجة المجهرية للفم وخلايا المينا والعاج.', 
+                    img: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=600&q=80',
+                    pdfUrl: 'pdfs/oral_histology.pdf',
+                    quizUrl: '#',
+                    videoUrl: '#',
+                    externalSourceUrl: 'https://www.youtube.com/'
+                },
+                { 
+                    title: 'Operative Dentistry', 
+                    desc: 'العلاج التحفظي وحشوات الأسنان التجميلية.', 
+                    img: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=600&q=80',
+                    pdfUrl: '#',
+                    quizUrl: '#',
+                    videoUrl: '#',
+                    externalSourceUrl: 'https://www.youtube.com/'
+                },
+                { 
+                    title: 'Endodontics (Endo)', 
+                    desc: 'صور أشعة وتشريح علاج الجذور والقنوات العصبية.', 
+                    img: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80',
+                    pdfUrl: '#',
+                    quizUrl: '#',
+                    videoUrl: '#',
+                    externalSourceUrl: 'https://www.youtube.com/'
+                }
+            ]
+        };
+
+        function triggerModal(target) {
+            currentGroup = target;
+            document.getElementById('modalBg').style.display = 'flex';
+            document.getElementById('passCode').value = '';
+            document.getElementById('passCode').focus();
+        }
+
+        function dismissModal() {
+            document.getElementById('modalBg').style.display = 'none';
+        }
+
+        function checkAccess() {
+            const inputVal = document.getElementById('passCode').value.trim();
+
+            if (inputVal === '') {
+                alert('يرجى كتابة الكود أولاً');
+                return;
+            }
+
+            if (inputVal.toUpperCase() === ACCESS_CODE) {
+                dismissModal();
+                if (currentGroup === 'schedule') {
+                    renderSchedule();
+                } else {
+                    renderCourses();
+                }
+            } else {
+                alert('الكود غير صحيح! الكود المطلوب هو: NADA123');
+            }
+        }
+
+        function renderCourses() {
+            document.getElementById('homeView').style.display = 'none';
+            document.getElementById('scheduleView').style.display = 'none';
+            document.getElementById('supportView').style.display = 'none';
+            document.getElementById('coursesView').style.display = 'block';
+            document.getElementById('backBtn').style.display = 'block';
+
+            const wrapper = document.getElementById('subjectsWrapper');
+            wrapper.innerHTML = '';
+
+            const items = coursesData[currentGroup];
+            document.getElementById('viewTitle').innerText = currentGroup === '1' ? 'مواد السنة الأولى' : 'مواد السنوات من 2 إلى 5';
+
+            items.forEach(item => {
+                wrapper.innerHTML += `
+                    <div class="subject-box">
+                        <div class="subject-side-img">
+                            <img src="${item.img}" alt="${item.title}">
+                        </div>
+                        <div class="subject-details">
+                            <h3>${item.title}</h3>
+                            <p>${item.desc}</p>
+                            <div class="buttons-grid">
+                                <a href="${item.pdfUrl}" target="_blank" class="btn-link">📖 المحاضرات (PDF)</a>
+                                <a href="${item.quizUrl}" target="_blank" class="btn-link">📝 الأسئلة</a>
+                                <a href="${item.videoUrl}" target="_blank" class="btn-link">🎥 الشرح المباشر</a>
+                                <a href="${item.externalSourceUrl}" target="_blank" class="btn-link btn-external">🎓 مصادر جانبية معتمدة</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderSchedule() {
+            document.getElementById('homeView').style.display = 'none';
+            document.getElementById('coursesView').style.display = 'none';
+            document.getElementById('supportView').style.display = 'none';
+            document.getElementById('scheduleView').style.display = 'block';
+            document.getElementById('backBtn').style.display = 'block';
+        }
+
+        function renderSupport() {
+            document.getElementById('homeView').style.display = 'none';
+            document.getElementById('coursesView').style.display = 'none';
+            document.getElementById('scheduleView').style.display = 'none';
+            document.getElementById('supportView').style.display = 'block';
+            document.getElementById('backBtn').style.display = 'block';
+        }
+
+        function openHome() {
+            document.getElementById('homeView').style.display = 'block';
+            document.getElementById('coursesView').style.display = 'none';
+            document.getElementById('scheduleView').style.display = 'none';
+            document.getElementById('supportView').style.display = 'none';
+            document.getElementById('backBtn').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
